@@ -1,0 +1,32 @@
+{
+  "name": "webpack-notification",
+  "author": "Rune Juhl Jacobsen <runejuhl@petardo.dk>",
+  "license": "GPL-3.0",
+  "version": "0.0.2",
+  "description": "Compile notifications for webpack",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/runejuhl/webpack-notification"
+  },
+  "bugs": {
+    "url" : "https://github.com/runejuhl/webpack-notification/issues"
+  },
+  "main": "webpack-notification.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "webpack",
+    "notification",
+    "notify",
+    "compile",
+    "build",
+    "error",
+    "warning",
+    "success"
+  ],
+  "devDependencies": {
+    "shell-escape": "^0.2.0",
+    "strip-ansi": "^3.0.0"
+  }
+}
