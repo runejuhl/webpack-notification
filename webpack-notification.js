@@ -43,21 +43,31 @@ WebpackNotificationPlugin.prototype.notify = function(stats) {
     return fullName.replace(base, '');
   };
 
+  var e, isError = false;
   if (stats.hasErrors()) {
-    var errorObj = stats.compilation.errors[0];
-  console.log('errorMsg', errorObj.message);
-  console.log('errorMsg', strip_ansi(errorObj.message));
-    execNotify(project, 'Compile failed; '+errorObj.name+' in '+getFileName(stats, errorObj) +' at ' + errorObj.error.loc.line + ':' + errorObj.error.loc.column);
+    e = stats.compilation.errors[0];
+    isError = true;
+  }
+
+  if (!e && stats.hasWarnings()) {
+    e = stats.compilation.warnings[0];
+  }
+
+  if (!e) {
+    execNotify(project, 'Compile succeeded in ' + compilationTime + ' msecs');
     return;
   }
 
-  // FIXME
-  if (stats.hasWarnings()) {
-    execNotify(project, 'Compile succeeded in ' + compilationTime + ' msecs with ' + stats.compilation.warnings.length + ' warning(s)');
-    return;
+  var line = e.error.loc ? e.error.loc.line : e.error.line;
+  var column = e.error.loc ? e.error.loc.column : e.error.column;
+  var loc = e.name+' in '+getFileName(stats, e) +' at ' + line + ':' + column;
+
+  if (isError) {
+    execNotify(project, 'Compile failed; ' + loc);
+  } else {
+    execNotify(project, 'Compile succeeded in ' + compilationTime + ' msecs with ' + stats.compilation.warnings.length + ' warning(s): ' + loc);
   }
 
-  execNotify(project, 'Compile succeeded in ' + compilationTime + ' msecs');
 }
 
 WebpackNotificationPlugin.prototype.apply = function(compiler) {

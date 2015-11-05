@@ -2,7 +2,7 @@
   "name": "webpack-notification",
   "author": "Rune Juhl Jacobsen <runejuhl@petardo.dk>",
   "license": "GPL-3.0",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Compile notifications for webpack",
   "repository": {
     "type": "git",
